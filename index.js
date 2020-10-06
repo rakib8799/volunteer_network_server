@@ -51,6 +51,12 @@ client.connect((err) => {
       res.send(documents)
     })
   })
+  app.delete('/admin/:id', (req, res) =>{
+    bookings.deleteOne({_id: ObjectId(req.params.id)})
+    .then(result => {
+    res.send(result.deletedCount>0)
+  })
+})
   app.delete('/task/:id', (req, res) =>{
       bookings.deleteOne({_id: ObjectId(req.params.id)})
       .then(result => {

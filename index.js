@@ -54,13 +54,13 @@ client.connect((err) => {
   app.delete('/admin/:id', (req, res) =>{
     bookings.deleteOne({_id: ObjectId(req.params.id)})
     .then(result => {
-    res.send(result.deletedCount>0)
+    res.send(result)
   })
 })
   app.delete('/task/:id', (req, res) =>{
       bookings.deleteOne({_id: ObjectId(req.params.id)})
       .then(result => {
-      res.send(result.deletedCount>0)
+      res.send(result)
     })
   })
 });

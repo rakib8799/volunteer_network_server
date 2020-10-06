@@ -23,56 +23,40 @@ const client = new MongoClient(uri, {
 });
 client.connect((err) => {
   const bookings = client.db(`${process.env.DB_NAME}`).collection(`${process.env.DB_COLLECTION}`);
-//   app.post('/addAll', (req, res) =>{
-//     const event = req.body;
-//     bookings.insertOne(event)
-//     .then(result => {
-//       res.send(result.insertedCount>0)
-//     })
-// })
+
   app.post('/adminForm', (req, res) =>{
-    const event = req.body;
-    bookings.insertOne(event)
-    .then(result => {
+      const event = req.body;
+      bookings.insertOne(event)
+      .then(result => {
       res.send(result.insertedCount>0)
     })
-})
+  })
   app.post("/content", (req, res) => {
-    const newBooking = req.body;
-    bookings.insertOne(newBooking)
-    .then((result) => {
+      const newBooking = req.body;
+      bookings.insertOne(newBooking)
+      .then((result) => {
       res.send(result.insertedCount>0);
     })
   })
-  // app.get('/register/:id',(req, res)=>{
-  //   const ami = req.params.id;
-  //   bookings.find({id: ami})
-  //   .toArray((err,documents)=>{
-  //     res.send(documents[0])
-  //   })
-  // })
   app.get('/event',(req, res)=>{
-    const ami = req.query.email;
-    bookings.find({email: ami})
-    .toArray((err,documents)=>{
+      const ami = req.query.email;
+      bookings.find({email: ami})
+      .toArray((err,documents)=>{
       res.send(documents)
     })
   })
-  app.get('/product',(req,res)=>{
-    bookings.find({})
-    .toArray((err, documents)=>{
+  app.get('/admin',(req,res)=>{
+      bookings.find({})
+      .toArray((err, documents)=>{
       res.send(documents)
     })
   })
   app.delete('/task/:id', (req, res) =>{
-    // console.log(req.params.id);
-    bookings.deleteOne({_id: ObjectId(req.params.id)})
-    .then(result => {
-      console.log(result)
+      bookings.deleteOne({_id: ObjectId(req.params.id)})
+      .then(result => {
       res.send(result.deletedCount>0)
     })
   })
-  
 });
 
 app.listen(process.env.PORT || port);
